@@ -1,10 +1,9 @@
 package com.github.hitzaki.bloom;
 
-import com.google.common.hash.BloomFilter;
-import com.google.common.hash.Funnel;
-import com.google.common.hash.Funnels;
 
-import java.nio.charset.Charset;
+import com.github.hitzaki.bloom.base.hash.HashSupportConstant;
+import com.github.hitzaki.bloom.filter.BloomFilter;
+
 import java.nio.charset.StandardCharsets;
 
 /**
@@ -13,8 +12,23 @@ import java.nio.charset.StandardCharsets;
  */
 public class MainApplication {
     public static void main(String[] args) {
+        int size=10000;
+        double fpp=0.0001;
+
         BloomFilter<CharSequence> bloomFilter =
-                BloomFilter.create(Funnels.stringFunnel(StandardCharsets.UTF_8),
-                        1000, 0.1);
+                BloomFilter.create(HashSupportConstant.stringSupport(StandardCharsets.UTF_8),
+                        10000, 0.02);
+        for (int m=0;m<size;m++){
+            bloomFilter.put(""+m);
+        }
+
+        int count = 0;
+
+        for(int n=size+10000;n<size+20000;n++){
+            if(bloomFilter.mightContain(""+n)){
+                count++;
+            }
+        }
+        System.out.println("误判数量："+count);
     }
 }
