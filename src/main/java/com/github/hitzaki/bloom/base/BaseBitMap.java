@@ -15,6 +15,7 @@ public class BaseBitMap {
     private static final int LONG_BITS = 6;
     private final AtomicLongArray data;
     private final AtomicInteger bitCount;
+    private final long bitSize;
 
     public BaseBitMap(long bitNum) {
         if (bitNum < 0){
@@ -22,12 +23,16 @@ public class BaseBitMap {
         }
         long arrayLen = bitNum >> LONG_BITS;
         arrayLen += (bitNum & 0x3f) > 0 ? 1 : 0;
-
+        bitSize = arrayLen << LONG_BITS;
         data = new AtomicLongArray((int)arrayLen);
         bitCount = new AtomicInteger(0);
     }
 
-    boolean set(long bitIndex) {
+    public long getBitSize(){
+        return this.bitSize;
+    }
+
+    public boolean set(long bitIndex) {
         if (this.get(bitIndex)) {
             return false;
         }
@@ -47,7 +52,7 @@ public class BaseBitMap {
         return true;
     }
 
-    boolean get(long bitIndex) {
+    public boolean get(long bitIndex) {
         return (this.data.get((int)(bitIndex >>> LONG_BITS)) & 1L << (int)bitIndex) != 0L;
     }
 

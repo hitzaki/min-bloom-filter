@@ -7,7 +7,7 @@ import java.nio.charset.Charset;
  * 抽象哈希
  * @author hitzaki
  */
-public abstract class AbstractHash {
+public abstract class AbstractHash implements Cloneable{
     protected ByteBuffer byteBuffer;
 
     AbstractHash(int size){
@@ -86,7 +86,7 @@ public abstract class AbstractHash {
         putBytes(charSequence.toString().getBytes(charset));
     }
 
-    HashCode hash(){
+    public HashCode hash(){
         if (byteBuffer.hasRemaining()){
             processRemaining();
         }
@@ -96,4 +96,5 @@ public abstract class AbstractHash {
     abstract void processRemaining();
 
     abstract HashCode makeHash();
+
 }

@@ -1,6 +1,6 @@
 package com.github.hitzaki.bloom.base;
 /**
- * TODO
+ * long类型工具
  * @author hitzaki
  */
 public class LongUtils {

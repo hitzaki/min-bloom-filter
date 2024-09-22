@@ -18,7 +18,7 @@ public class Murmur3_128Hash extends AbstractHash{
     private int length;
 
 
-    Murmur3_128Hash(int seed) {
+    public Murmur3_128Hash(int seed) {
         super(CHUNK_SIZE);
         this.h1 = (long)seed;
         this.h2 = (long)seed;
@@ -92,7 +92,7 @@ public class Murmur3_128Hash extends AbstractHash{
     }
 
     @Override
-    public HashCode makeHash() {
+    HashCode makeHash() {
         this.h1 ^= (long)this.length;
         this.h2 ^= (long)this.length;
         this.h1 += this.h2;
