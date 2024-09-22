@@ -16,9 +16,24 @@ public class Validations {
         return false;
     }
 
-    public static void checkEmpty(Collection<?> collection){
+    public static Collection<?> checkEmpty(Collection<?> collection){
         if (collection == null || collection.isEmpty()){
-            throw new BaseUtilsException("运行失败, 集合为空");
+            throw new BaseUtilsException("Validations: 集合为空");
+        }
+        return collection;
+    }
+
+    public static <T> T checkNotNull(T o){
+        if (o == null){
+            throw new BaseUtilsException("Validations: 对象为null");
+        }
+        return o;
+    }
+
+    public static void checkState(boolean bool, String position){
+        if (bool){
+            throw new BaseUtilsException("Validations.State: " + position);
         }
     }
+
 }
